@@ -1,7 +1,8 @@
 # Music Application
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.3. and used Angular Material 17.1.2.
-This application runs on Spotify Developer APIs, allowing you to enjoy music for up to 29 seconds. Feel the rhythm and experience the joy of music!
+This application runs on Spotify Developer APIs, allowing you to enjoy music for up to 29 seconds. Feel the rhythm and experience the joy of music! 
+Project Available on https://viswanathgowda.github.io/Music-Application/
 
 ## Development server
 
