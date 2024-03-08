@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="content">
+    <div class="logo">
+      <img src="{{ playlistAudioFileImg }}" />
+    </div>
+    <div class="list">
+      <mat-list>
+        @for(file of files; track file.track_number){
+        <mat-list-item
+          (click)="openFile(file, file.track_number)"
+          [class.active-item]="file.track_number == selected"
+          class="list-item"
+        >
+          <!-- <mat-icon color="primary" mat-list-icon>music_note</mat-icon> -->
+          <h4 mat-line>{{ file.name }}</h4>
+          <!-- <h5 mat-line>by {{ file.artist }}</h5> -->
+          <!-- @if(currentFile.index === file.track_number && !state?.error) {
+    
+          <mat-icon color="primary">volume_up</mat-icon>
+          } @if(currentFile.index === file.track_number && state?.error) {
+    
+          <h6>ERROR</h6>
+          } -->
+          <mat-divider></mat-divider>
+        </mat-list-item>
+
+        }
+      </mat-list>
+    </div>
+  </div>
+  <div class="media-footer">
+    <mat-toolbar>
+      <mat-toolbar-row>
+        {{ state.readableCurrentTime }}
+        <!-- <mat-slider
+          class="time-slider"
+          min="0"
+          [max]="state.duration"
+          step="1"
+          (input)="onSliderChangeEnd($event)"
+          [disabled]="false"
+          ><input matSliderThumb />
+        </mat-slider> -->
+        <mat-slider
+          class="time-slider"
+          [disabled]="false"
+          [max]="state.duration"
+          [step]="1"
+        >
+          <input matSliderThumb [(ngModel)]="state.readableCurrentTime" />
+        </mat-slider>
+        {{ state.readableDuration }}
+      </mat-toolbar-row>
+      <!-- [value]="state?.currentTime" -->
+      <mat-toolbar-row class="media-action-bar">
+        <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
+          <mat-icon mat-list-icon>skip_previous</mat-icon>
+        </button>
+        @if(!state.playing){
+
+        <button mat-button (click)="play()">
+          <mat-icon mat-list-icon>play_circle_filled</mat-icon>
+        </button>
+        } @if(state.playing){
+
+        <button mat-button (click)="pause()">
+          <mat-icon mat-list-icon>pause</mat-icon>
+        </button>
+        }
+        <button mat-button [disabled]="isLastPlaying()" (click)="next()">
+          <mat-icon mat-list-icon>skip_next</mat-icon>
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+</div>

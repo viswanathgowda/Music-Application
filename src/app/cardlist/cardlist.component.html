@@ -1,0 +1,77 @@
+<div class="album-list">
+
+  <div class="album">
+    @if(audio.items.length > 0 && audio.items[0] !== null){ @for(album of
+    audio.items; track album; let i = $index){ @if(i < 8 || (viewMore.state && viewMore.value===album.type)){ <mat-card
+      class="album-card" matRipple [matRippleCentered]="centered" [matRippleDisabled]="disabled"
+      [matRippleUnbounded]="unbounded">
+      <img class="card-img" (click)="getAlbum(album)" mat-card-image [src]="
+          album.type === 'track'
+            ? album.album.images[0].url
+            : album.images.length > 0
+            ? album.images[0].url
+            : '/src/assets/pexels-shelagh-murphy-1666816.jpg'
+        " alt="{{ album?.name }}" />
+      <mat-card-content class="album-card-text">
+        <p>
+          {{ album.name }}
+          {{
+          album.type === "track" ? album.album.release_date : album.release_date
+          }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="play-btn">
+        @if((album.id === playId) && state.playing){
+        <button mat-mini-fab color="basic" aria-label="play" (click)="pause(album.id)">
+          @if(album.type === 'album'){
+          <mat-icon>queue_music</mat-icon>
+          }@else{
+          <mat-icon>pause</mat-icon>
+          }
+        </button>
+        <ul class="wave-menu">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        }@else if(state.pause && album.id === playId){
+        <button mat-mini-fab color="basic" aria-label="play" (click)="pausePlay(album.id)">
+          @if(album.type === 'album'){
+          <mat-icon>queue_music</mat-icon>
+          }@else{
+          <mat-icon>pause</mat-icon>
+          }
+        </button>
+        <ul class="wave-menu-pause wave-menu">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        }@else{
+        <button mat-mini-fab color="basic" aria-label="play" (click)="play(album)">
+          @if(album.type === 'album'){
+          <mat-icon>playlist_play</mat-icon>
+          }@else{
+          <mat-icon>play_arrow</mat-icon>
+          }
+        </button>
+        }
+      </mat-card-actions>
+      @if((album.id === playId) && !urlNotfound && ['album',
+      'playlist'].includes(album.type) ){
+      <div class="card-footer">
+        <div class="blue">{{ selected.track_number }} / {{ selected.total }}</div>
+        <p class="audio-title">{{ selected.title }}</p>
+      </div>
+      }
+      </mat-card>
+
+      } } }
+  </div>
+</div>

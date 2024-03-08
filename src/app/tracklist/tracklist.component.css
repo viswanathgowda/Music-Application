@@ -1,0 +1,46 @@
+.container {
+  height: 100vh;
+  .content {
+    height: calc(100vh - 150px);
+    .logo {
+      height: 250px;
+      text-align: center;
+      img {
+        height: 250px;
+      }
+    }
+  }
+  .list {
+    height: auto;
+  }
+  .active-item {
+    background-color: gray !important;
+  }
+  .list-item:hover {
+    border: solid blue !important;
+    cursor: pointer;
+  }
+  h4 {
+    margin: 0 !important;
+  }
+  .media-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    .time-slider {
+      width: 100% !important;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    .media-action-bar {
+      width: 100%;
+      padding: 2.5rem;
+      justify-content: center;
+      .mat-icon {
+        height: 48px !important;
+        width: 48px !important;
+        font-size: 48px !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@if(messageState){
+<div class="intro-overlay">
+  <div class="intro-card">
+    <span class="title">{{ title }}</span>
+    <p class="description">
+      {{ messageText }}
+    </p>
+    <div class="actions">
+      <button class="accept" (click)="getToken()">Accept</button>
+    </div>
+  </div>
+</div>
+}
