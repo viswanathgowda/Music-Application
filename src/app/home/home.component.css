@@ -80,3 +80,15 @@ input:hover {
   width: 1rem;
   height: 1rem;
 }
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    margin: 25px 0 25px 0;
+    max-width: 210px;
+    min-width: 100px;
+  }
+}

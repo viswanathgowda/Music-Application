@@ -3,8 +3,8 @@ import { RouterOutlet } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { LoaderComponent } from './util/loader/loader.component';
-import { IntroComponent } from './util/intro/intro.component';
 import { AudiolistStatusComponent } from './util/audiolist-status/audiolist-status.component';
+import { MessageComponent } from './util/message/message.component';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ import { AudiolistStatusComponent } from './util/audiolist-status/audiolist-stat
     HomeComponent,
     RouterOutlet,
     LoaderComponent,
-    IntroComponent,
+    MessageComponent,
     AudiolistStatusComponent,
   ],
   templateUrl: './app.component.html',

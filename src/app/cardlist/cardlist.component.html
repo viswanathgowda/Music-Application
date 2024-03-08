@@ -1,5 +1,4 @@
 <div class="album-list">
-
   <div class="album">
     @if(audio.items.length > 0 && audio.items[0] !== null){ @for(album of
     audio.items; track album; let i = $index){ @if(i < 8 || (viewMore.state && viewMore.value===album.type)){ <mat-card
@@ -66,7 +65,7 @@
       @if((album.id === playId) && !urlNotfound && ['album',
       'playlist'].includes(album.type) ){
       <div class="card-footer">
-        <div class="blue">{{ selected.track_number }} / {{ selected.total }}</div>
+        <div class="blue">{{ selected.track_number }}@if(selected.total){<span>/</span>}{{ selected.total }}</div>
         <p class="audio-title">{{ selected.title }}</p>
       </div>
       }

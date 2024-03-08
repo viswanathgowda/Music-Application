@@ -22,6 +22,11 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { IntroComponent } from '../util/intro/intro.component';
+import { SpotifyAuthService } from '../spotify/spotify-auth.service';
+import { ToastComponent } from '../util/toast/toast.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -40,6 +45,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatListModule,
     MatMenuModule,
     CardlistComponent,
+    MatDialogModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -51,6 +57,9 @@ export class HomeComponent implements OnInit {
   loader = inject(LoaderService);
   message = inject(MessageService);
   isSessionValid = inject(SessionValidatorService);
+  dialog = inject(MatDialog);
+  spotifyAuth = inject(SpotifyAuthService);
+  snackBar = inject(MatSnackBar);
 
   state!: StreamState;
 
@@ -77,21 +86,38 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     const visit = localStorage.getItem('visited');
-    if (visit === 'false') {
-      this.message.info();
-      this.message
-        .message(`This application runs on Spotify Developer APIs, allowing you to enjoy
-        music for up to 29 seconds. Feel the rhythm and experience the joy of
-        music!`);
+    if (visit == 'false' || visit == null) {
+      this.openDialog();
+    } else {
+      this.query = sessionStorage.getItem('query');
+      this.query ? this.searchQuery() : this.newReleases();
     }
-    const pollingInterval = setInterval(() => {
-      const visit = localStorage.getItem('visited');
-      if (visit === 'true') {
-        this.query = sessionStorage.getItem('query');
-        this.query ? this.searchQuery() : this.newReleases();
-        clearInterval(pollingInterval);
-      }
-    }, 1000);
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(IntroComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      localStorage.setItem('visited', 'true');
+      this.spotifyAuth.getToken().subscribe(
+        (token) => {
+          localStorage.setItem('access_token', token.access_token);
+          const expiresIn = new Date().getTime() + token.expires_in * 1000;
+          localStorage.setItem('expires_in', String(expiresIn));
+          token ? this.newReleases() : '';
+        },
+        (error) => {
+          this.openSnackBar(`Error fetching access token: ${error}`);
+        }
+      );
+      this.query = sessionStorage.getItem('query');
+    });
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.openFromComponent(ToastComponent, {
+      duration: 5 * 1000,
+      data: message,
+    });
   }
 
   playStream(url: any) {

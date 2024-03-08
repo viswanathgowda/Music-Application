@@ -1,13 +1,14 @@
-@if(messageState){
-<div class="intro-overlay">
-  <div class="intro-card">
-    <span class="title">{{ title }}</span>
-    <p class="description">
-      {{ messageText }}
-    </p>
-    <div class="actions">
-      <button class="accept" (click)="getToken()">Accept</button>
-    </div>
-  </div>
-</div>
-}
+<h2 mat-dialog-title>Welcome to the Music Web Application</h2>
+<mat-dialog-content class="mat-typography">
+
+
+  <p>This application runs on Spotify Developer APIs, allowing you to enjoy
+    music for up to 29 seconds. Feel the rhythm and experience the joy of
+    music!</p>
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Accept</button>
+</mat-dialog-actions>

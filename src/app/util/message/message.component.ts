@@ -1,22 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { LoaderService } from '../loader.service';
 import { MessageService } from '../message.service';
 import { SpotifyAuthService } from '../../spotify/spotify-auth.service';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoaderService } from '../loader.service';
+import { Router } from '@angular/router';
 import { ToastComponent } from '../toast/toast.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-intro',
+  selector: 'app-message',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
-  templateUrl: './intro.component.html',
-  styleUrl: './intro.component.css',
+  imports: [],
+  templateUrl: './message.component.html',
+  styleUrl: './message.component.css',
 })
-export class IntroComponent {
+export class MessageComponent {
   message = inject(MessageService);
   spotifyAuth = inject(SpotifyAuthService);
   loaderInfo = inject(LoaderService);
@@ -26,10 +23,8 @@ export class IntroComponent {
   messageState: boolean = false;
   messageText: string | undefined;
   title: string = `Welcome to the Music Web Application`;
-  visit: any;
 
   ngOnInit() {
-    this.visit = localStorage.getItem('visited');
     this.message.infoState.subscribe((state) => {
       this.messageState = state;
     });
@@ -38,13 +33,6 @@ export class IntroComponent {
     });
   }
   getToken() {
-    this.token();
-    this.message.agree();
-    this.loaderInfo.hide();
-    localStorage.setItem('visited', 'true');
-  }
-
-  token() {
     this.spotifyAuth.getToken().subscribe(
       (token) => {
         localStorage.setItem('access_token', token.access_token);

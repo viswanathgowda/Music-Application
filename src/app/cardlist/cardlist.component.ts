@@ -88,6 +88,7 @@ export class CardlistComponent {
 
   async audioLoop() {
     this.selected.total = this.files.length;
+    console.log(this.selected, this.files);
 
     for (let i = 0; i < this.files.length; i++) {
       const file = this.files[i];
