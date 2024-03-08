@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-pwa": {
+    "Music-Application": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -58,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ng-pwa:build:production"
+              "buildTarget": "Music-Application:build:production"
             },
             "development": {
-              "buildTarget": "ng-pwa:build:development"
+              "buildTarget": "Music-Application:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -69,7 +69,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "ng-pwa:build"
+            "buildTarget": "Music-Application:build"
           }
         },
         "test": {
@@ -88,6 +88,9 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
