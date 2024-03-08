@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1709882345075,
+  "timestamp": 1709893029605,
   "index": "/Music-Application/index.html",
   "assetGroups": [
     {
@@ -11,11 +11,11 @@
         "ignoreVary": true
       },
       "urls": [
-        "/Music-Application/chunk-PCMQIPTI.js",
-        "/Music-Application/chunk-VJHAKR2X.js",
+        "/Music-Application/chunk-NFVZBD3K.js",
+        "/Music-Application/chunk-ZRCOUIJK.js",
         "/Music-Application/favicon.ico",
         "/Music-Application/index.html",
-        "/Music-Application/main-6HEWBFN6.js",
+        "/Music-Application/main-UV56TKFL.js",
         "/Music-Application/manifest.webmanifest",
         "/Music-Application/polyfills-RX4V3J3S.js",
         "/Music-Application/styles-DZVFS6U3.css"
@@ -56,11 +56,11 @@
     "/Music-Application/assets/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "/Music-Application/assets/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
     "/Music-Application/assets/pexels-shelagh-murphy-1666816.jpg": "26ad6000dffe40fd4474ccfb93a3ff83d4f65e1b",
-    "/Music-Application/chunk-PCMQIPTI.js": "d46b3d8679162038523523ee78aaf10ffb1c98a8",
-    "/Music-Application/chunk-VJHAKR2X.js": "7f3adc13508966def9b8c3f151f3ad0dc1778da9",
+    "/Music-Application/chunk-NFVZBD3K.js": "4365fba398dd52a1a15121b36eb5e97e4de1fd57",
+    "/Music-Application/chunk-ZRCOUIJK.js": "24a7fa4248543d7cf1c97c8a377b0be3dffa83da",
     "/Music-Application/favicon.ico": "9b9d75868890025ca635f8e054dd4563cf069106",
-    "/Music-Application/index.html": "3206ace73409cad247fea13ce3c680f261aa59c2",
-    "/Music-Application/main-6HEWBFN6.js": "2424cffe9e3fcbfd8506cde2b75b6d9d9abea3f4",
+    "/Music-Application/index.html": "1d7e7cf34fcf7194f3f7877359588fd21b093eef",
+    "/Music-Application/main-UV56TKFL.js": "51a781d37ee8ae49aeb8760d1d824958b95e8396",
     "/Music-Application/manifest.webmanifest": "429192d52753140d1bf4edd6631ef39e14d2d434",
     "/Music-Application/polyfills-RX4V3J3S.js": "6b4c4ea33aa92bce0b91df442a680ed73e4303db",
     "/Music-Application/styles-DZVFS6U3.css": "ff3916768ec1bf48905edcfba8372028ea65e683"
