@@ -1,6 +1,7 @@
-# NgPwa
+# Music Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.3.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.3. and used Angular Material 17.1.2.
+This application runs on Spotify Developer APIs, allowing you to enjoy music for up to 29 seconds. Feel the rhythm and experience the joy of music!
 
 ## Development server
 
@@ -25,3 +26,10 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Angular Deployment Process
+
+1.install ng add angular-cli-ghpages
+2.ng deploy --base-href=/<repo-name>/
+3.settings->select the branch ghpages -> save
+4.actions -> check the deployment status -> click on live link
