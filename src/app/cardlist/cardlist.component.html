@@ -22,7 +22,7 @@
       <mat-card-actions class="play-btn">
         @if((album.id === playId) && state.playing){
         <button mat-mini-fab color="basic" aria-label="play" (click)="pause(album.id)">
-          @if(album.type === 'album'){
+          @if(['album', 'playlist'].includes(album.type)){
           <mat-icon>queue_music</mat-icon>
           }@else{
           <mat-icon>pause</mat-icon>
@@ -38,10 +38,10 @@
         </ul>
         }@else if(state.pause && album.id === playId){
         <button mat-mini-fab color="basic" aria-label="play" (click)="pausePlay(album.id)">
-          @if(album.type === 'album'){
-          <mat-icon>queue_music</mat-icon>
+          @if(['album', 'playlist', 'artist'].includes(album.type)){
+          <mat-icon>playlist_play</mat-icon>
           }@else{
-          <mat-icon>pause</mat-icon>
+          <mat-icon>play_arrow</mat-icon>
           }
         </button>
         <ul class="wave-menu-pause wave-menu">
@@ -54,7 +54,7 @@
         </ul>
         }@else{
         <button mat-mini-fab color="basic" aria-label="play" (click)="play(album)">
-          @if(album.type === 'album'){
+          @if(['album', 'playlist', 'artist'].includes(album.type)){
           <mat-icon>playlist_play</mat-icon>
           }@else{
           <mat-icon>play_arrow</mat-icon>
@@ -62,11 +62,11 @@
         </button>
         }
       </mat-card-actions>
-      @if((album.id === playId) && !urlNotfound && ['album',
-      'playlist'].includes(album.type) ){
+      @if((album.id === playId) && (selected.loopend) && !urlNotfound && ['album',
+      'playlist', 'artist'].includes(album.type) ){
       <div class="card-footer">
-        <div class="blue">{{ selected.track_number }}@if(selected.total){<span>/</span>}{{ selected.total }}</div>
         <p class="audio-title">{{ selected.title }}</p>
+        <div class="blue">{{ selected.track_number }}@if(selected.total){<span>/</span>}{{ selected.total }}</div>
       </div>
       }
       </mat-card>

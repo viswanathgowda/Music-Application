@@ -64,7 +64,7 @@ export class CardlistComponent {
   files: Array<any> = [];
   currentFile: any = {};
   playId: any = null;
-  selected = { track_number: '', title: '', total: 0 };
+  selected = { track_number: '', title: '', total: 0, loopend: 0 };
   urlNotfound: boolean = false;
 
   constructor() {
@@ -79,37 +79,49 @@ export class CardlistComponent {
       .subscribe((events) => {});
   }
 
-  getTracks(albumId: string) {
-    this.spotify.getAlbum(albumId).subscribe((res) => {
+  getTracks(audioFile: any) {
+    this.spotify.getAlbum(audioFile.id).subscribe((res) => {
       this.files = res.items;
-      this.audioLoop();
+      this.audioLoop(audioFile.type);
     });
   }
 
-  async audioLoop() {
-    this.selected.total = this.files.length;
-    console.log(this.selected, this.files);
-
-    for (let i = 0; i < this.files.length; i++) {
-      const file = this.files[i];
-      this.selected.track_number = file.track_number;
-      this.selected.title = file.name;
-
-      // Wrap the asynchronous operation in a Promise
-      await new Promise<void>((resolve) => {
-        // Subscribe to the playStream observable
-        const subscription = this.audioService
-          .playStream(file.preview_url)
-          .subscribe((events: any) => {
-            this.urlNotfound = ['error'].includes(events.type);
-            this.urlNotfound ? this.openSnackBar('audio not found') : '';
-            if (events.type === 'ended') {
-              // When the 'ended' event occurs, resolve the Promise
-              subscription.unsubscribe(); // Unsubscribe to avoid memory leaks
-              resolve();
-            }
-          });
+  async audioLoop(fileType: string) {
+    if (fileType === 'playlist') {
+      this.files = this.files.map((item) => {
+        return item.track;
       });
+    }
+
+    const fileLenght = this.files.length + 1;
+    for (let i = 0; i < fileLenght; i++) {
+      this.selected.loopend = 0;
+      if (i < this.files.length) {
+        this.selected.loopend = 1;
+        this.selected.total = this.files.length;
+        const file = this.files[i];
+        this.selected.track_number = ['playlist', 'artist'].includes(fileType)
+          ? i + 1
+          : file.track_number;
+        // this.selected.track_number = file.track_number;
+        this.selected.title = file.name;
+        file.preview_url ? '' : this.openSnackBar('audio not found');
+        // Wrap the asynchronous operation in a Promise
+        await new Promise<void>((resolve) => {
+          // Subscribe to the playStream observable
+          const subscription = this.audioService
+            .playStream(file.preview_url)
+            .subscribe((events: any) => {
+              this.urlNotfound = ['error'].includes(events.type);
+              this.urlNotfound ? this.openSnackBar('audio not found') : '';
+              if (events.type === 'ended') {
+                // When the 'ended' event occurs, resolve the Promise
+                subscription.unsubscribe(); // Unsubscribe to avoid memory leaks
+                resolve();
+              }
+            });
+        });
+      }
 
       // Continue with the next iteration after the 'ended' event
     }
@@ -126,6 +138,19 @@ export class CardlistComponent {
     ['album', 'playlist'].includes(audioFile.type)
       ? this.router.navigate(['/tracks', audioFile.id])
       : '';
+  }
+
+  getPlaylist(audioFile: any) {
+    this.spotify.getPlaylists(audioFile.href).subscribe((res: any) => {
+      this.files = res.tracks.items;
+      this.audioLoop(audioFile.type);
+    });
+  }
+  getArtistTracks(audioFile: any) {
+    this.spotify.getArtistTracks(audioFile.id).subscribe((res: any) => {
+      this.files = res.tracks;
+      this.audioLoop(audioFile.type);
+    });
   }
 
   openFile(file: { preview_url: any }, index: any) {
@@ -156,7 +181,7 @@ export class CardlistComponent {
     };
     if (audioFile.type === 'album') {
       cFn(audioFile.id);
-      this.getTracks(audioFile.id);
+      this.getTracks(audioFile);
       this.audioService.play();
     } else if (audioFile.type === 'track') {
       cFn(audioFile.id);
@@ -164,6 +189,13 @@ export class CardlistComponent {
       const index = audioFile.track_number;
       this.openFile(file, index);
       this.audioService.play();
+    } else if (['playlist', 'audiobook'].includes(audioFile.type)) {
+      cFn(audioFile.id);
+      this.getPlaylist(audioFile);
+      this.audioService.play();
+    } else if (audioFile.type === 'artist') {
+      cFn(audioFile.id);
+      this.getArtistTracks(audioFile);
     }
   }
 

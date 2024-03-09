@@ -53,4 +53,29 @@ export class SpotifyWebserviceService {
     };
     return this.http.get(`${this.baseUrl}/browse/new-releases`, authOptions);
   }
+  getPlaylists(url: string) {
+    const token = localStorage.getItem('access_token');
+    const authOptions = {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+    return this.http.get(`${url}`, authOptions);
+  }
+  getArtistTracks(id: string) {
+    const token = localStorage.getItem('access_token');
+    const authOptions = {
+      headers: new HttpHeaders({
+        Accept: 'application/json',
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+    return this.http.get(
+      `${this.baseUrl}/artists/${id}/top-tracks`,
+      authOptions
+    );
+  }
 }
